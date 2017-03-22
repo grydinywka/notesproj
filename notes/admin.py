@@ -4,4 +4,3 @@ from notes.models import Note
 
 
 admin.site.register(Note)
-
