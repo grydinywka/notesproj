@@ -7,7 +7,7 @@ from django.db import migrations
 
 def load_notes_users_from_fixture(apps, schema_editor):
     from django.core.management import call_command
-    call_command("loaddata", "initial_data.json")
+    call_command("loaddata", "init_notes.json")
 
 
 class Migration(migrations.Migration):
