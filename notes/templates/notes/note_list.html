@@ -1,0 +1,12 @@
+{% extends "notes/base.html" %}
+{% load static from staticfiles %}
+
+{% block title %}notes' list:{% endblock title %}
+
+{% block content %}
+    <ul>
+    {% for note in notes %}
+        <li>{{ note.text }}</li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

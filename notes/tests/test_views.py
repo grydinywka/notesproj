@@ -21,9 +21,9 @@ class NoteTestViews(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertIn("Call to husband" in response.content)
+        self.assertIn("Call to husband", response.content)
 
-        self.assertEqual(len(response.content['notes']), 3  )
+        self.assertEqual(len(response.context['notes']), 3)
 
 
         notes = Note.objects.all()
