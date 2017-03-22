@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from notes.views import NoteListView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', NoteListView.as_view(), name='home'),
 ]
