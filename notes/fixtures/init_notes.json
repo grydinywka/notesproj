@@ -1,0 +1,37 @@
+[
+{
+  "model": "notes.note",
+  "pk": 1,
+  "fields": {
+    "text": "My best list is"
+  }
+},
+{
+  "model": "notes.note",
+  "pk": 2,
+  "fields": {
+    "text": "My Thoughts"
+  }
+},
+{
+  "model": "notes.note",
+  "pk": 3,
+  "fields": {
+    "text": "Quite"
+  }
+},
+{
+  "model": "notes.note",
+  "pk": 4,
+  "fields": {
+    "text": "persons Nongrate are: F, G & D"
+  }
+},
+{
+  "model": "notes.note",
+  "pk": 5,
+  "fields": {
+    "text": "Dimano - Vorskla 0:0"
+  }
+}
+]
