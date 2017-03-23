@@ -23,4 +23,5 @@ class NoteTestViews(TestCase):
 
         self.assertIn("Call to husband", response.content)
 
-        self.assertEqual(len(response.context['notes']), 3)
+        # 5 obj from fixture and 3 - from here
+        self.assertEqual(len(response.context['notes']), 8)
