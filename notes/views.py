@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from notes.models import Note
+from notes.forms import CreateNoteForm
 
 
 class NoteListView(ListView):
@@ -12,7 +13,8 @@ class NoteListView(ListView):
 
 class NoteCreateView(CreateView):
     model = Note
-    fields = ('text',)
+    # fields = ('text',)
+    form_class = CreateNoteForm
 
     def get_success_url(self):
         messages.success(self.request, "Note create successfully")

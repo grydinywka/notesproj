@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 
 from notes.models import Note
 
@@ -46,4 +47,15 @@ class TestNoteAddForm(TestCase):
         self.assertIn(b"Note is not create", response.content)
 
         self.assertEqual(response.redirect_chain[0][0], '/')
+        self.assertEqual(value_notes, Note.objects.all().count())
+
+    def test_less_ten_char(self):
+        value_notes = Note.objects.all().count()
+        response = self.client.post(self.url, {
+            'text': "Field"
+            }, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'The text field required at least 10 characters', response.content)
+
         self.assertEqual(value_notes, Note.objects.all().count())
