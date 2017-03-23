@@ -35,6 +35,7 @@ class TestNoteAddForm(TestCase):
         self.assertEqual(response.redirect_chain[0][0], '/')
 
     def test_cancel(self):
+        value_notes = Note.objects.all().count()
         response = self.client.post(self.url, {
             'text': "Field Text filed",
             'cancel_button': True
@@ -45,3 +46,4 @@ class TestNoteAddForm(TestCase):
         self.assertIn(b"Note is not create", response.content)
 
         self.assertEqual(response.redirect_chain[0][0], '/')
+        self.assertEqual(value_notes, Note.objects.all().count())
