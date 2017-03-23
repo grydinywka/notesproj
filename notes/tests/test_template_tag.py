@@ -13,7 +13,7 @@ class TestTemplateTag(TestCase):
         Note.objects.create(text="My boats is ")
 
     def test_id2note(self):
-        # test id2note template filter
+        # test id2note template tag
         note = Note.objects.get(text="Empty trash")
 
         out_note = Template(
