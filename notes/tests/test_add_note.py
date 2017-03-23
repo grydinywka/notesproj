@@ -20,7 +20,7 @@ class TestNoteAddForm(TestCase):
         self.assertIn(b'Text', response.content)
         self.assertIn(b'name="add_button"', response.content)
         self.assertIn(b'name="cancel_button"', response.content)
-        self.assertIn(b'action="%s"' % self.url, response.content)
+        self.assertIn('action="%s"' % self.url, response.content.decode())
 
     def test_success(self):
         response = self.client.post(self.url, {
@@ -28,7 +28,21 @@ class TestNoteAddForm(TestCase):
             }, follow=True
         )
 
-        self.assertExual(response.status_code, 200)
-        note = Note.objects.get(pk=1)
+        self.assertEqual(response.status_code, 200)
+        note = Note.objects.get(pk=6)
         self.assertEqual(note.text, "Field Text filed")
         self.assertIn(b'Note create successfully', response.content)
+
+        self.assertEqual(response.redirect_chain[0][0], '/')
+
+    def test_cancel(self):
+        response = self.client.post(self.url, {
+            'text': "Field Text filed",
+            'cancel_button': True
+            }, follow=True
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Note is not create", response.content)
+
+        self.assertEqual(response.redirect_chain[0][0], '/')
