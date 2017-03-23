@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
-from django.template import Template, Context
 
 from notes.models import Note
 
