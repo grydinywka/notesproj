@@ -1,12 +1,12 @@
 {% extends "notes/base.html" %}
 {% load static from staticfiles %}
 
-{% block meta_title %}- Create{% endblock meta_title %}
+{% block meta_title %}- Create Upper{% endblock meta_title %}
 
-{% block title %}note create:{% endblock title %}
+{% block title %}note upper create:{% endblock title %}
 
 {% block content %}
-<form action="{% url 'notes_add' %}" method="post" enctype="multipart/form-data" name="note_create">
+<form action="{% url 'notes_add_upper' %}" method="post" enctype="multipart/form-data" name="note_create_upper">
     {% csrf_token %}
     <table class="table">
     {{ form.as_table }}

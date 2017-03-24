@@ -5,10 +5,10 @@ from notes.models import Note
 from notes.forms import MIN_LEN_NOTE
 
 
-class TestNoteAddForm(TestCase):
+class TestNoteAddFormCustomField(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse('notes_add')
+        self.url = reverse('notes_add_upper')
 
     def test_form(self):
         # get response
@@ -30,8 +30,8 @@ class TestNoteAddForm(TestCase):
 
         self.assertEqual(response.status_code, 200)
         note = Note.objects.get(pk=6)
-        self.assertEqual(note.text, "Field Text filed")
-        self.assertIn(b'Note create successfully', response.content)
+        self.assertEqual(note.text, "FIELD TEXT FILED")
+        self.assertIn(b'Note uppercase create successfully', response.content)
 
         self.assertEqual(response.redirect_chain[0][0], '/')
 
@@ -44,7 +44,7 @@ class TestNoteAddForm(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Note is not create", response.content)
+        self.assertIn(b"Note uppercase is not create", response.content)
 
         self.assertEqual(response.redirect_chain[0][0], '/')
         self.assertEqual(value_notes, Note.objects.all().count())
