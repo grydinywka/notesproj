@@ -9,8 +9,8 @@ def id2note(parser, token):
     try:
         tag_name, note_id = token.split_contents()
     except ValueError:
-        raise template.TemplateSyntaxError("{} tag requires 1 argument".\
-                                           format(token.contents.split()[0]))
+        raise template.TemplateSyntaxError("{} tag requires 1 argument"
+                                           .format(token.contents.split()[0]))
 
     return NoteIdNode(note_id)
 

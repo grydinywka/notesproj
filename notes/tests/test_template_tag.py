@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.template import Template, Context
 
 from notes.models import Note

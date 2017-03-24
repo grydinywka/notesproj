@@ -1,0 +1,19 @@
+{% extends "notes/base.html" %}
+{% load static from staticfiles %}
+
+{% block meta_title %}- Create{% endblock meta_title %}
+
+{% block title %}note create:{% endblock title %}
+
+{% block content %}
+<form action="{% url 'notes_add' %}", method="post" enctype="multipart/form-data" name="note_create">
+    {% csrf_token %}
+    <table class="table">
+    {{ form.as_table }}
+
+    </table>
+    <input type="submit" value="Create" name="add_button" class="btn btn-primary" />
+    <input type="submit" value="Cancel" name="cancel_button" class="btn btn-link" />
+    <!--<button type="cancel" onclick="window.location='http://stackoverflow.com';return false;">Cancel</button>-->
+</form>
+{% endblock content %}

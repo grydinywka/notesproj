@@ -21,7 +21,7 @@ class NoteTestViews(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertIn("Call to husband", response.content)
+        self.assertIn(b"Call to husband", response.content)
 
         # 5 obj from fixture and 3 - from here
         self.assertEqual(len(response.context['notes']), 8)
