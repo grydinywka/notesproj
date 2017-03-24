@@ -38,7 +38,7 @@ class TestNoteAddForm(TestCase):
     def test_cancel(self):
         value_notes = Note.objects.all().count()
         response = self.client.post(self.url, {
-            'text': "Field Text filed",
+            'text': "Field",
             'cancel_button': True
             }, follow=True
         )

@@ -6,10 +6,17 @@ MIN_LEN_NOTE = 10
 
 
 class CreateNoteForm(forms.ModelForm):
+    error_css_class = 'text-danger has-error'
+    required_css_class = "required"
 
     class Meta:
         model = Note
         fields = ('text',)
+
+    text = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control'})
+    )
 
     def clean_text(self):
         data = self.cleaned_data['text']
