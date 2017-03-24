@@ -23,3 +23,17 @@ class CreateNoteForm(forms.ModelForm):
         if len(data) < MIN_LEN_NOTE:
                 raise ValidationError('The text field required at least {} characters'.format(MIN_LEN_NOTE))
         return data
+
+
+class CharFieldUpper(forms.CharField):
+    def to_python(self, value):
+        value = super(CharFieldUpper, self).to_python(value)
+
+        return value.upper()
+
+
+class CreateNoteUpperForm(CreateNoteForm):
+    text = CharFieldUpper(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control'})
+    )

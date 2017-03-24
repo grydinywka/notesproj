@@ -5,7 +5,10 @@
 
 {% block title %}notes' list:{% endblock title %}
 {% block btn %}
-<div><a href="{% url 'notes_add' %}" class="btn btn-default">Add Note</a> </div>
+<div>
+    <a href="{% url 'notes_add' %}" class="btn btn-default">Add Note</a>
+    <a href="{% url 'notes_add_upper' %}" class="btn btn-default">Add Note Upper</a>
+</div>
 {% endblock btn %}
 {% block content %}
 
