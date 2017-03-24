@@ -21,7 +21,8 @@ class CreateNoteForm(forms.ModelForm):
     def clean_text(self):
         data = self.cleaned_data['text']
         if len(data) < MIN_LEN_NOTE:
-                raise ValidationError('The text field required at least {} characters'.format(MIN_LEN_NOTE))
+            raise ValidationError('The text field required at least'
+                                  ' {} characters'.format(MIN_LEN_NOTE))
         return data
 
 

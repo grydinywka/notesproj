@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.forms import ModelForm, ValidationError, Textarea
+from django.forms import ModelForm, Textarea
 
 from notes.models import Note
 from notes.forms import CharFieldUpper
@@ -12,6 +12,7 @@ class NoteFormAdmin(ModelForm):
             'cols': 80
         })
     )
+
 
 class NoteAdmin(admin.ModelAdmin):
     form = NoteFormAdmin

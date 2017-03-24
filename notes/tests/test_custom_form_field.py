@@ -56,7 +56,7 @@ class TestNoteAddFormCustomField(TestCase):
             }, follow=True
         )
         self.assertEqual(response.status_code, 200)
-        self.assertIn('The text field required at least {} characters'.format(MIN_LEN_NOTE),
-                      response.content.decode())
+        self.assertIn('The text field required at least {} characters'.
+                      format(MIN_LEN_NOTE), response.content.decode())
 
         self.assertEqual(value_notes, Note.objects.all().count())

@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, FormView
+from django.views.generic import ListView, CreateView
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
