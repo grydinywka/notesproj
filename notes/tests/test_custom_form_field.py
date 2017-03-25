@@ -8,13 +8,11 @@ from notes.forms import MIN_LEN_NOTE
 class TestNoteAddFormCustomField(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse('home')
+        self.url = reverse('notes_add_upper')
 
     def test_form(self):
         # get response
-        response = self.client.get(self.url, {
-            "add_note_link": True
-        }, follow=False)
+        response = self.client.get(self.url, {}, follow=True)
 
         # check response status
         self.assertEqual(response.status_code, 200)
@@ -25,36 +23,44 @@ class TestNoteAddFormCustomField(TestCase):
         self.assertIn('action="%s"' % self.url, response.content.decode())
 
     def test_success(self):
+        # make post-ajax request
         response = self.client.post(self.url, {
             'text': "Field Text filed",
             'add_button': True
-            }, follow=False
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
+
         note = Note.objects.get(pk=6)
         self.assertEqual(note.text, "FIELD TEXT FILED")
-        self.assertIn(b'Note uppercase create successfully', response.content)
+
+        self.assertEqual('new upper note is created', response.json()['status'])
 
     def test_cancel(self):
-        value_notes = Note.objects.all().count()
+        value_notes = Note.objects.count()
         response = self.client.post(self.url, {
             'text': "Field",
             'cancel_button': True
-            }, follow=False
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Note uppercase is not create", response.content)
+        self.assertEqual("cancel creating new upper note", response.json()['status'])
 
-        self.assertEqual(value_notes, Note.objects.all().count())
+        self.assertEqual(value_notes, Note.objects.count())
 
     def test_less_ten_char(self):
         value_notes = Note.objects.all().count()
-        response = self.client.post(self.url, {
-            'text': "Field",
-            'add_button': True
-            }, follow=False
+        response = self.client.post(
+            self.url,
+            {
+                'text': "Field",
+                'add_button': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
         self.assertEqual(response.status_code, 200)
         self.assertIn('The text field required at least {} characters'.
