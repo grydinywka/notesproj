@@ -27,39 +27,38 @@ class TestNoteAddFormCustomField(TestCase):
         response = self.client.post(self.url, {
             'text': "Field Text filed",
             'add_button': True
-            },
+            }, follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
-
         note = Note.objects.get(pk=6)
         self.assertEqual(note.text, "FIELD TEXT FILED")
+        self.assertIn(b'Note uppercase create successfully', response.content)
 
-        self.assertEqual('new upper note is created', response.json()['status'])
+        self.assertEqual(response.redirect_chain[0][0], '/')
 
     def test_cancel(self):
-        value_notes = Note.objects.count()
+        value_notes = Note.objects.all().count()
         response = self.client.post(self.url, {
             'text': "Field",
             'cancel_button': True
-            },
+            }, follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual("cancel creating new upper note", response.json()['status'])
+        self.assertIn(b"Note uppercase is not create", response.content)
 
-        self.assertEqual(value_notes, Note.objects.count())
+        self.assertEqual(response.redirect_chain[0][0], '/')
+        self.assertEqual(value_notes, Note.objects.all().count())
 
     def test_less_ten_char(self):
         value_notes = Note.objects.all().count()
-        response = self.client.post(
-            self.url,
-            {
-                'text': "Field",
-                'add_button': True
-            },
+        response = self.client.post(self.url, {
+            'text': "Field",
+            'add_button': True
+            }, follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
         self.assertEqual(response.status_code, 200)
