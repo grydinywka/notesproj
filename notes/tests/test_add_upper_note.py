@@ -12,7 +12,9 @@ class TestNoteAddFormCustomField(TestCase):
 
     def test_form(self):
         # get response
-        response = self.client.get(self.url, {}, follow=True)
+        response = self.client.get(self.url, {}, follow=True,
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+                                   )
 
         # check response status
         self.assertEqual(response.status_code, 200)
@@ -38,20 +40,19 @@ class TestNoteAddFormCustomField(TestCase):
 
         self.assertEqual(response.redirect_chain[0][0], '/')
 
-    def test_cancel(self):
+    def test_empty(self):
         value_notes = Note.objects.all().count()
         response = self.client.post(self.url, {
-            'text': "Field",
-            'cancel_button': True
+            'text': "",
+            'add_button': True
             }, follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Note uppercase is not create", response.content)
+        self.assertIn(b"This field is required.", response.content)
 
-        self.assertEqual(response.redirect_chain[0][0], '/')
-        self.assertEqual(value_notes, Note.objects.all().count())
+        self.assertEqual(value_notes, Note.objects.count())
 
     def test_less_ten_char(self):
         value_notes = Note.objects.all().count()
@@ -65,4 +66,4 @@ class TestNoteAddFormCustomField(TestCase):
         self.assertIn('The text field required at least {} characters'.
                       format(MIN_LEN_NOTE), response.content.decode())
 
-        self.assertEqual(value_notes, Note.objects.all().count())
+        self.assertEqual(value_notes, Note.objects.count())
