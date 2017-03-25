@@ -3,27 +3,12 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from notes.models import Note
-from notes.forms import CreateNoteForm, CreateNoteUpperForm
+from notes.forms import CreateNoteUpperForm
 
 
 class NoteListView(ListView):
     model = Note
     context_object_name = "notes"
-
-
-class NoteCreateView(CreateView):
-    model = Note
-    form_class = CreateNoteForm
-
-    def get_success_url(self):
-        messages.success(self.request, "Note create successfully")
-        return reverse('home')
-
-    def post(self, request, *args, **kwargs):
-        if request.POST.get("cancel_button"):
-            messages.success(self.request, "Note is not create")
-            return HttpResponseRedirect(reverse('home'))
-        return super(NoteCreateView, self).post(request, *args, **kwargs)
 
 
 class NoteUpperCreateView(CreateView):
@@ -36,7 +21,11 @@ class NoteUpperCreateView(CreateView):
         return reverse('home')
 
     def post(self, request, *args, **kwargs):
-        if request.POST.get("cancel_button"):
-            messages.success(self.request, "Note uppercase is not create")
-            return HttpResponseRedirect(reverse('home'))
-        return super(NoteUpperCreateView, self).post(request, *args, **kwargs)
+        if request.is_ajax():
+            return super(NoteUpperCreateView, self).post(request, *args, **kwargs)
+        return HttpResponseRedirect(reverse('home'))
+
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            return super(NoteUpperCreateView, self).get(request, *args, **kwargs)
+        return HttpResponseRedirect(reverse('home'))
