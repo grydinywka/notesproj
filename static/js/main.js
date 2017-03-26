@@ -45,7 +45,7 @@ function initAddNoteForm2(form, modal, link){
 function initAddNotePage2() {
 	$('a.add_note2').click(function(event){
 	    var link = $(this);
-//	    var link = 'https://notes-proj.herokuapp.com/note/add-upper/';
+//	    var link = 'https://notes-proj.herokuapp.com/note/add/';
 
 	    event.preventDefault();
 	    $.ajax({
