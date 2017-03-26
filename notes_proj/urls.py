@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from notes.views import NoteListView,\
-                        NoteUpperCreateView, Trycors
+                        NoteUpperCreateView, Trycors, NoteCreateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +26,6 @@ urlpatterns = [
         name='notes_add_upper'),
     url(r'^cors/$', Trycors.as_view(),
         name='cors'),
+    url(r'^note/add/$', NoteCreateView.as_view(),
+        name='notes_add'),
 ]
