@@ -1,21 +1,21 @@
 {% extends "notes/base.html" %}
 {% load static from staticfiles %}
+{% load id2note %}
 
 {% block meta_title %}- List{% endblock meta_title %}
 
 {% block title %}notes' list:{% endblock title %}
 {% block btn %}
 <div>
-    <a href="{% url 'notes_add' %}" class="btn btn-default">Add Note</a>
-    <a href="{% url 'notes_add_upper' %}" class="btn btn-default">Add Note Upper</a>
+    <a href="{% url 'notes_add' %}" class="btn btn-default add_note2">Add Note</a>
 </div>
 {% endblock btn %}
 {% block content %}
 
-    <ul>
+    <ul id="note-list">
     {% for note in notes %}
         <li>{{ note.text }}</li>
     {% endfor %}
     </ul>
-<p>Amount of notes is {{ NOTE_COUNT }}</p>
+<p id="note_count">Amount of notes is {{ NOTE_COUNT }}</p>
 {% endblock content %}

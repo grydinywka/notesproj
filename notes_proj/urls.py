@@ -16,13 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from notes.views import NoteListView, NoteCreateView,\
-                        NoteUpperCreateView
+from notes.views import NoteListView,\
+                        NoteCreateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', NoteListView.as_view(), name='home'),
-    url(r'^note/add/$', NoteCreateView.as_view(), name='notes_add'),
-    url(r'^note/add-upper/$', NoteUpperCreateView.as_view(),
-        name='notes_add_upper'),
+    url(r'^note/add/$', NoteCreateView.as_view(),
+        name='notes_add'),
 ]

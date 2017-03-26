@@ -4,7 +4,12 @@ from django.template import Template, Context
 from notes.models import Note
 
 
-class TestTemplateTag(TestCase):
+class TemplateTagTest(TestCase):
+    """
+    Test template tag
+    """
+    fixtures = None
+
     def setUp(self):
         # create notes objects
         Note.objects.create(text="Buy pasta and tomatoes")

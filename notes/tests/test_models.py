@@ -6,6 +6,8 @@ from notes.models import Note
 class NotesModelTest(TestCase):
     """Test Note Model"""
 
+    fixtures = []
+
     def test_str(self):
         note = Note.objects.create(text="Buy bread, pasta, oranges.")
         note1 = Note.objects.create(text="Buy bread")
