@@ -19,7 +19,7 @@ class NoteAddFormTest(TestCase):
         response = self.client.get(
             self.url,
             follow=True,
-           HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         # check response status
@@ -54,7 +54,8 @@ class NoteAddFormTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual('errors', response.json()['status'])
-        self.assertIn("This field is required.", response.json()['errors']['text'])
+        self.assertIn("This field is required.",
+                      response.json()['errors']['text'])
         self.assertEqual({}, response.json()['data'])
         self.assertEqual(value_notes, Note.objects.count())
 

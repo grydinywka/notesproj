@@ -34,12 +34,12 @@ class NoteCreateView(CreateView):
     def form_valid(self, form):
         note = Note.objects.create(text=form.cleaned_data['text'])
         new_count = Note.objects.count()
-        return JsonResponse({"status":"created", "note_id": note.id,
+        return JsonResponse({"status": "created", "note_id": note.id,
                              "new_count": new_count})
 
     def form_invalid(self, form):
         errors = {}
         for field, errs in form.errors.items():
             errors[field] = errs
-        return JsonResponse({"status":"errors", "errors": errors,
+        return JsonResponse({"status": "errors", "errors": errors,
                              "data": form.data})
