@@ -106,7 +106,7 @@ function cors_try(){
         $.ajax({
             'url': "cors/",
             'type': "POST",
-            crossDomain: true,
+//            crossDomain: true,
             'data': {
 //                    'csrfmiddlewaretoken': getCookie('csrftoken'),
                     'text': 'text'

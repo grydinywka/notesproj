@@ -148,7 +148,7 @@ if os.environ.get('BASE_IRI', 'localhost') == 'localhost':
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
     DATABASES['default']['NAME'] = os.path.join(BASE_DIR, 'db.sqlite3')
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 # CSRF_TRUSTED_ORIGINS = (
 #     '127.0.0.1:8000',
 # )
