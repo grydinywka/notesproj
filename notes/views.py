@@ -37,14 +37,14 @@ class NoteUpperCreateView(CreateView):
 class Trycors(TemplateView):
     template_name = None
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(Trycors, self).dispatch(request, *args, **kwargs)
+    # @method_decorator(csrf_exempt)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(Trycors, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         return JsonResponse({"Get": 'get'})
 
     def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            print(request.POST)
+        # if request.is_ajax():
+            # print(request.POST)
         return JsonResponse({"post":"All right"})
