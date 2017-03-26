@@ -9,18 +9,27 @@ from notes.forms import CreateNoteUpperForm
 
 
 class NoteListView(ListView):
+    """
+    The view for render list of notes
+    """
     model = Note
     context_object_name = "notes"
 
 
 class NoteCreateView(CreateView):
+    """
+    The view for creating new uppercase note objects.
+    If user make POST - response will JSON.
+    If GET - html template with form.
+    Make post may do from other domains
+    """
     template_name = "notes/note_form.html"
     model = Note
     form_class = CreateNoteUpperForm
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(NoteCreateView, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         note = Note.objects.create(text=form.cleaned_data['text'])

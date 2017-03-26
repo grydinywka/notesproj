@@ -5,7 +5,12 @@ from notes.models import Note
 from notes.forms import MIN_LEN_NOTE
 
 
-class TestNoteAddForm(TestCase):
+class NoteAddFormTest(TestCase):
+    """
+    The Test class for form of creating new note
+    """
+    fixtures = None
+
     def setUp(self):
         self.client = Client()
         self.url = reverse('notes_add')

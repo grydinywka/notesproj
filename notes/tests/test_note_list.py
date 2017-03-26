@@ -4,7 +4,12 @@ from django.core.urlresolvers import reverse
 from notes.models import Note
 
 
-class NoteTestViews(TestCase):
+class NoteListTest(TestCase):
+    """
+    Test of list of notes
+    """
+    fixtures = ['init_notes']
+
     def setUp(self):
         # create notes objects
         Note.objects.create(text="Buy pasta and tomatoes")
