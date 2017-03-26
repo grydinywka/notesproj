@@ -38,14 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    # 'corsheaders',
     'notes',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -148,9 +148,18 @@ if os.environ.get('BASE_IRI', 'localhost') == 'localhost':
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
     DATABASES['default']['NAME'] = os.path.join(BASE_DIR, 'db.sqlite3')
 
-CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS = (
-    # '91.200.52.200',
-    # 'localhost',
-    'hurl.it'
-)
+# CORS_ORIGIN_ALLOW_ALL = True
+# # CSRF_TRUSTED_ORIGINS = (
+# #     # '91.200.52.200',
+# #     # 'localhost',
+# #     'hurl.it'
+# # )
+# CORS_ALLOW_HEADERS = (
+#     'x-requested-with',
+#     'content-type',
+#     'accept',
+#     'origin',
+#     'authorization',
+#     'x-csrftoken',
+#     'x-mobile'
+# )

@@ -13,7 +13,7 @@ function initAddNoteForm(form, modal, link){
             'url': link.attr('href'),
             'dataType': 'html',
             'data': {
-                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+//                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                 'text': form.find("#id_text").val()
             },
             'beforeSend': function(xhr,setting){},
@@ -99,17 +99,16 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-//var csrftoken = getCookie('csrftoken');
 
 function cors_try(){
     $('a.cors').click(function(event){
         $.ajax({
             'url': "cors/",
             'type': "POST",
-            crossDomain: true,
+//            crossDomain: true,
             'data': {
 //                    'csrfmiddlewaretoken': getCookie('csrftoken'),
-                    'text': 'text'
+                    'text': 'text2'
                 },
             'dataType': "json",
             success:function(data, status, xhr){
