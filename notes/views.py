@@ -13,61 +13,10 @@ class NoteListView(ListView):
     context_object_name = "notes"
 
 
-class NoteUpperCreateView(CreateView):
-    template_name = "notes/note_upper_form.html"
-    model = Note
-    form_class = CreateNoteUpperForm
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(NoteUpperCreateView, self).dispatch(request, *args, **kwargs)
-
-
-    def get_success_url(self):
-        messages.success(self.request, "Note uppercase create successfully")
-        return reverse('home')
-
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            # print(request.POST)
-            return super(NoteUpperCreateView, self).post(request, *args, **kwargs)
-        return HttpResponseRedirect(reverse('home'))
-
-    def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            return super(NoteUpperCreateView, self).get(request, *args, **kwargs)
-        return HttpResponseRedirect(reverse('home'))
-
-
-class Trycors(TemplateView):
-    template_name = None
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(Trycors, self).dispatch(request, *args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        if request.is_ajax():
-            print('ajax_________________________')
-        else:
-            print("not ajax___________________")
-        return JsonResponse({"Get": 'getlocal'})
-
-    def post(self, request, *args, **kwargs):
-        # if request.is_ajax():
-        print(request.POST)
-        return JsonResponse({"post":"All right"})
-
-
 class NoteCreateView(CreateView):
     template_name = "notes/note_form.html"
     model = Note
     form_class = CreateNoteUpperForm
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(NoteCreateView, self).get_context_data(**kwargs)
-    #     context['form'] = CreateNoteUpperForm()
-    #     return context
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -85,4 +34,3 @@ class NoteCreateView(CreateView):
             errors[field] = errs
         return JsonResponse({"status":"errors", "errors": errors,
                              "data": form.data})
-

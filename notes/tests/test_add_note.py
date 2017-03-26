@@ -5,16 +5,17 @@ from notes.models import Note
 from notes.forms import MIN_LEN_NOTE
 
 
-class TestNoteAddFormCustomField(TestCase):
+class TestNoteAddForm(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse('notes_add_upper')
+        self.url = reverse('notes_add')
 
     def test_form(self):
-        # get response
-        response = self.client.get(self.url, {}, follow=True,
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest',
-                                   )
+        response = self.client.get(
+            self.url,
+            follow=True,
+           HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
 
         # check response status
         self.assertEqual(response.status_code, 200)
@@ -25,45 +26,44 @@ class TestNoteAddFormCustomField(TestCase):
         self.assertIn('action="%s"' % self.url, response.content.decode())
 
     def test_success(self):
-        # make post-ajax request
-        response = self.client.post(self.url, {
-            'text': "Field Text filed",
-            'add_button': True
-            }, follow=True,
+        response = self.client.post(
+            self.url,
+            {'text': "Field Text filed"},
+            follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
         note = Note.objects.get(pk=6)
         self.assertEqual(note.text, "FIELD TEXT FILED")
-        self.assertIn(b'Note uppercase create successfully', response.content)
-
-        self.assertEqual(response.redirect_chain[0][0], '/')
+        self.assertEqual('created', response.json()['status'])
+        self.assertEqual(note.id, response.json()['note_id'])
 
     def test_empty(self):
-        value_notes = Note.objects.all().count()
-        response = self.client.post(self.url, {
-            'text': "",
-            'add_button': True
-            }, follow=True,
+        value_notes = Note.objects.count()
+        response = self.client.post(
+            self.url,
+            follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"This field is required.", response.content)
-
+        self.assertEqual('errors', response.json()['status'])
+        self.assertIn("This field is required.", response.json()['errors']['text'])
+        self.assertEqual({}, response.json()['data'])
         self.assertEqual(value_notes, Note.objects.count())
 
     def test_less_ten_char(self):
-        value_notes = Note.objects.all().count()
-        response = self.client.post(self.url, {
-            'text': "Field",
-            'add_button': True
-            }, follow=True,
+        value_notes = Note.objects.count()
+        response = self.client.post(
+            self.url,
+            {'text': "Field"},
+            follow=True,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
         self.assertEqual(response.status_code, 200)
+        self.assertEqual('errors', response.json()['status'])
         self.assertIn('The text field required at least {} characters'.
-                      format(MIN_LEN_NOTE), response.content.decode())
-
-        self.assertEqual(value_notes, Note.objects.count())
+                      format(MIN_LEN_NOTE), response.json()['errors']['text'])
+        self.assertEqual("Field", response.json()['data']['text'])
+        self.assertEqual(value_notes, Note.objects.all().count())
