@@ -11,6 +11,7 @@ function initAddNoteForm(form, modal, link){
         $.ajax({
             'type': 'POST',
             'url': link.attr('href'),
+//            'url': "https://notes-proj.herokuapp.com/note/add-upper/",
             'dataType': 'html',
             'data': {
 //                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
