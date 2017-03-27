@@ -72,3 +72,17 @@ class RequestListView(ListView):
         context['unviewed'] = RequestMy.objects.filter(is_viewed=False).count()
 
         return context
+
+    def get(self, request, *args, **kwargs):
+        viewed = request.GET.get('viewed')
+        if viewed == 'true':
+            requestsmy = self.get_queryset()
+            for obj in requestsmy:
+                obj.is_viewed = True
+                obj.save()
+
+        return super().get(request, *args, **kwargs)
+
+
+class RequestListViewForAjax(RequestListView):
+    template_name = None

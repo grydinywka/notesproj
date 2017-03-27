@@ -19,7 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from notes.views import NoteListView, RequestListView,\
-                        NoteCreateView, NoteRandomView
+                        NoteCreateView, NoteRandomView,\
+                        RequestListViewForAjax
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,4 +31,6 @@ urlpatterns = [
         name='note_random'),
     url(r'^requests/$', RequestListView.as_view(),
         name='requests_list'),
+    url(r'^requests-ajax/$', RequestListViewForAjax.as_view(),
+        name='requests_ajax'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
