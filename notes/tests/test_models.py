@@ -1,6 +1,6 @@
-from django.test import TestCase
-
-from notes.models import Note, Book
+from django.test import TestCase, Client
+from django.core.urlresolvers import reverse
+from notes.models import Note, Book, RequestMy
 
 
 class ModelsTest(TestCase):
@@ -41,3 +41,16 @@ class ModelsTest(TestCase):
         book.notes.remove(note2)
 
         self.assertEqual(book_count, Book.objects.count())
+
+    def test_request(self):
+        client = Client()
+        url = reverse('home')
+        response = client.get(url)
+        requests_count = RequestMy.objects.count()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(1, requests_count)
+
+        response = client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(1, requests_count)

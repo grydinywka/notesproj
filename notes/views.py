@@ -2,7 +2,7 @@ from django.views.generic import ListView, CreateView, TemplateView
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from notes.models import Note
+from notes.models import Note, RequestMy
 from notes.forms import CreateNoteUpperForm
 
 
@@ -46,6 +46,7 @@ class NoteCreateView(CreateView):
 
 
 class NoteRandomView(TemplateView):
+    """View for return random note object(text)"""
     template_name = 'notes/note_random.html'
 
     def get_context_data(self, **kwargs):
@@ -54,3 +55,34 @@ class NoteRandomView(TemplateView):
         context['note'] = note.text
 
         return context
+
+
+class RequestListView(ListView):
+    """View for getting 10 last request"""
+
+    template_name = 'notes/requestmy_list.html'
+    model = RequestMy
+    context_object_name = 'requests'
+
+    def get_queryset(self):
+        return RequestMy.objects.order_by('-id')[:10]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unviewed'] = RequestMy.objects.filter(is_viewed=False).count()
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        viewed = request.GET.get('viewed')
+        if viewed == 'true':
+            requestsmy = self.get_queryset()
+            for obj in requestsmy:
+                obj.is_viewed = True
+                obj.save()
+
+        return super().get(request, *args, **kwargs)
+
+
+class RequestListViewForAjax(RequestListView):
+    template_name = None
