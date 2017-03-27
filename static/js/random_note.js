@@ -1,6 +1,6 @@
 function get_note(){
 
-    $.get("note/random/", function(data, status){
+    $.get("https://notes-proj.herokuapp.com/note/random/", function(data, status){
         var html = $(data);
         var note = html.find('#note_random').parent().html();
 
