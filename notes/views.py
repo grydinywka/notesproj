@@ -1,3 +1,5 @@
+import random
+
 from django.views.generic import ListView, CreateView, TemplateView
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, JsonResponse
@@ -45,3 +47,14 @@ class NoteCreateView(CreateView):
             errors[field] = errs
         return JsonResponse({"status": "errors", "errors": errors,
                              "data": form.data})
+
+
+class NoteRandomView(TemplateView):
+    template_name = 'notes/note_random.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        note = Note.objects.order_by('?')[0]
+        context['note'] = note.text
+
+        return context

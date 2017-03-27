@@ -19,11 +19,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from notes.views import NoteListView,\
-                        NoteCreateView
+                        NoteCreateView, NoteRandomView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', NoteListView.as_view(), name='home'),
     url(r'^note/add/$', NoteCreateView.as_view(),
         name='notes_add'),
+    url(r'^note/random/$', NoteRandomView.as_view(),
+        name='note_random'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

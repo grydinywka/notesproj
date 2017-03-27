@@ -1,0 +1,21 @@
+function get_note(){
+    $.get("https://notes-proj.herokuapp.com/note/random/", function(data, status){
+        var html = $(data);
+        var note = html.find('#note_random').parent().html();
+
+        $('#rand-script').after( note ).css( "color", "green" );
+        $('#note_random').css({
+            "text-align": "center",
+            "margin": "40px",
+            "font-size": "30px"
+        });
+         $('#note_random p').css({
+            "background-color": "#ffe"
+         });
+    });
+}
+
+
+$(document).ready(function(){
+    get_note();
+});

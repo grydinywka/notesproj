@@ -1,0 +1,14 @@
+{% extends "notes/base.html" %}
+{% load static from staticfiles %}
+{% load id2note %}
+
+{% block meta_title %}- Random note{% endblock meta_title %}
+
+{% block title %}Random note{% endblock title %}
+
+{% block content %}
+<div id="note_random">
+    <span>Random note object is:</span>
+    <p>{{ note }}</p>
+</div>
+{% endblock content %}
