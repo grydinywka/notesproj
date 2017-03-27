@@ -43,3 +43,13 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class RequestMy(models.Model):
+    """Model for storing requests"""
+
+    path = models.CharField(max_length=255)
+    method = models.CharField(max_length=63)
+
+    def __str__(self):
+        return "Request {} {}".format(self.method, self.path)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import ModelForm, Textarea
 
-from notes.models import Note, Book
+from notes.models import Note, Book, RequestMy
 from notes.forms import CharFieldUpper
 
 
@@ -23,3 +23,4 @@ class BookAdmin(admin.ModelAdmin):
 
 admin.site.register(Note, NoteAdmin)
 admin.site.register(Book, BookAdmin)
+admin.site.register(RequestMy)
