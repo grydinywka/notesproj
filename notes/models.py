@@ -50,6 +50,7 @@ class RequestMy(models.Model):
 
     path = models.CharField(max_length=255)
     method = models.CharField(max_length=63)
+    is_viewed = models.BooleanField(blank=False, default=False)
 
     def __str__(self):
         return "Request {} {}".format(self.method, self.path)

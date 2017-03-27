@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
-from notes.views import NoteListView,\
+from notes.views import NoteListView, RequestListView,\
                         NoteCreateView, NoteRandomView
 
 urlpatterns = [
@@ -28,4 +28,6 @@ urlpatterns = [
         name='notes_add'),
     url(r'^note/random/$', NoteRandomView.as_view(),
         name='note_random'),
+    url(r'^requests/$', RequestListView.as_view(),
+        name='requests_list'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,6 +7,6 @@ class RequestMyMiddleware(object):
 
     def process_request(self, request):
         RequestMy.objects.create(path=request.path, method=request.method)
-        print(request.method)
+        # print(request.method)
         # print(datetime.now())
         return None

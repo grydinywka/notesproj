@@ -1,0 +1,17 @@
+{% extends "notes/base.html" %}
+{% load static from staticfiles %}
+
+{% block unviewed_req %}{{ unviewed }} - {% endblock unviewed_req %}
+
+{% block meta_title %}- Requests{% endblock meta_title %}
+
+{% block title %}requests:{% endblock title %}
+
+{% block content %}
+
+    <ul>
+    {% for request in requests %}
+        <li>{{ request.id }} - {{ request }} - {{ request.is_viewed }}</li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
