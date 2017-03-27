@@ -20,8 +20,8 @@ class ModelsTest(TestCase):
     def test_book(self):
         note1 = Note.objects.create(text="Buy bread")
         note2 = Note.objects.create(text="Buy")
-        book = Book.objects.create()
-
+        book = Book.objects.create(name="rest")
+        #
         book.notes.add(note1)
         book.notes.add(note2)
 
