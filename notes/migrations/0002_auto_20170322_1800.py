@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from django.db import migrations
 
 
-def load_notes_users_from_fixture(apps, schema_editor):
-    from django.core.management import call_command
-    call_command("loaddata", "init_notes.json")
+# def load_notes_users_from_fixture(apps, schema_editor):
+#     from django.core.management import call_command
+#     call_command("loaddata", "init_notes.json")
 
 
 class Migration(migrations.Migration):
@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         ('notes', '0001_initial'),
     ]
 
-    operations = [
-        migrations.RunPython(load_notes_users_from_fixture),
-    ]
+    # operations = [
+    #     migrations.RunPython(load_notes_users_from_fixture),
+    # ]
