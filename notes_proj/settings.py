@@ -149,3 +149,6 @@ if os.environ.get('BASE_IRI', 'localhost') == 'localhost':
     DATABASES['default']['NAME'] = os.path.join(BASE_DIR, 'db.sqlite3')
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

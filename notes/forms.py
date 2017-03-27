@@ -15,7 +15,7 @@ class CreateNoteForm(forms.ModelForm):
 
     class Meta:
         model = Note
-        fields = ('text',)
+        fields = ('text', 'image')
 
     text = forms.CharField(
         widget=forms.Textarea(attrs={
