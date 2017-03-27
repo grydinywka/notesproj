@@ -19,3 +19,27 @@ class Note(models.Model):
             return " ".join(self.text.split()[:2]) + " ..."
         else:
             return self.text
+
+
+class Book(models.Model):
+    """
+    The model for storing notes
+    """
+    name = models.CharField(
+        max_length=255,
+        blank=False,
+        null=True,
+        default=None
+    )
+    notes = models.ManyToManyField(
+        Note,
+        blank=True,
+        default=None
+    )
+
+    def get_notes(self):
+        notes = [note.__str__() for note in self.notes.all()]
+        return notes
+
+    def __str__(self):
+        return self.name
