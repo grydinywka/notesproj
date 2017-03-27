@@ -8,7 +8,6 @@ class TemplateTagTest(TestCase):
     """
     Test template tag
     """
-    fixtures = None
 
     def setUp(self):
         # create notes objects
