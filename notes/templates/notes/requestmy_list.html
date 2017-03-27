@@ -14,7 +14,10 @@
         <li value="{{ request.id }}">{{ request.id }} - {{ request }} - {{ request.is_viewed }}</li>
     {% endfor %}
     </ul>
-<p id="request-count">{{ unviewed }}</p>
+<div>
+    <p>Count of unviewed requests: <span id="request-count">{{ unviewed }}</span></p>
+
+</div>
 {% endblock content %}
 
 {% block js_add %}
