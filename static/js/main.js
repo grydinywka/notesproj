@@ -6,19 +6,25 @@ function initAddNoteForm2(form, modal, link){
         modal.modal('hide');
         $('.messages').html('<div class="alert alert-warning">Note is not create</div>');
     });
-
+//    $('#id_image').change( function(event1) {
+//        var tmppath = URL.createObjectURL(event1.target.files[0]);
+//        alert($(this).val());
+//    });
     form.find('input[name="add_button"]').click(function(event) {
         var text = form.find("#id_text").val();
-        event.preventDefault();
-        $.ajax({
-            'type': 'POST',
-            'url': link.attr('href'),
+
+//        event.preventDefault();
+
+        form.ajaxSubmit({
+//            'type': 'POST',
+//            'url': link.attr('href'),
 //            'url': "https://notes-proj.herokuapp.com/note/add-upper/",
             'dataType': 'json',
-            'data': {
-//                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
-                'text': form.find("#id_text").val()
-            },
+//            'data': {
+////                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+//                'text': form.find("#id_text").val(),
+//                'image': form.find('input[type=file]').val()
+//            },
             'beforeSend': function(xhr,setting){},
             'error': function(xhr, status, error){
                 alert("error");
@@ -31,13 +37,13 @@ function initAddNoteForm2(form, modal, link){
                     $('#note-list').append('<li>' + text.toUpperCase() + '</li>');
                     $('#note_count').text('Amount of notes is ' + data['new_count']);
                 } else {
-//                    alert(data['status']);
                     $('tr.required').addClass("text-danger has-error");
                     $('#id_text').parent().find('ul').hide();
                     $('#id_text').parent().prepend('<ul><li>' + data['errors']['text'] + '</li></ul>');
                 }
             }
         });
+//        return false;
     });
 
 }

@@ -32,7 +32,9 @@ class NoteCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        note = Note.objects.create(text=form.cleaned_data['text'])
+        # print(form.cleaned_data)
+        note = Note.objects.create(text=form.cleaned_data['text'],
+                                   image=form.cleaned_data['image'])
         new_count = Note.objects.count()
         return JsonResponse({"status": "created", "note_id": note.id,
                              "new_count": new_count})
