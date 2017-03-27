@@ -1,5 +1,4 @@
 function get_note(){
-
     $.get("https://notes-proj.herokuapp.com/note/random/", function(data, status){
         var html = $(data);
         var note = html.find('#note_random').parent().html();
@@ -18,12 +17,5 @@ function get_note(){
 
 
 $(document).ready(function(){
-    var action = true;
-
-    if ( action == true ) {
-        get_note();
-        action = false;
-    }
-//    document.write("My custom");
+    get_note();
 });
-//document.write("My custom");

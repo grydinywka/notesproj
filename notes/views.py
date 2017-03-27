@@ -55,6 +55,6 @@ class NoteRandomView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         note = Note.objects.order_by('?')[0]
-        context['note'] = note
+        context['note'] = note.text
 
         return context
