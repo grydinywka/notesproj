@@ -34,8 +34,12 @@ class NoteCreateView(CreateView):
         note = Note.objects.create(text=form.cleaned_data['text'],
                                    image=form.cleaned_data['image'])
         new_count = Note.objects.count()
+        if note.image:
+            image_url = note.image.url
+        else:
+            image_url = "static/img/default.jpg"
         return JsonResponse({"status": "created", "note_id": note.id,
-                             "new_count": new_count})
+                             "new_count": new_count, "image_url": image_url})
 
     def form_invalid(self, form):
         errors = {}
@@ -55,6 +59,10 @@ class NoteRandomView(TemplateView):
         context['note'] = note.text
 
         return context
+
+    # def get(self, request, *args, **kwargs):
+    #
+    #
 
 
 class RequestListView(ListView):

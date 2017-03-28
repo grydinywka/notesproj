@@ -34,7 +34,9 @@ function initAddNoteForm2(form, modal, link){
                 if ( data['status'] == 'created' ) {
                     modal.modal('hide');
                     $('.messages').html('<div class="alert alert-warning">Note is create</div>');
-                    $('#note-list').append('<li>' + text.toUpperCase() + '</li>');
+                    $('#note-list').append('<li>' + text.toUpperCase()
+                    + ' - ' + "<img src=" + data['image_url']
+                    +  " height=\"40\" width=\"40\" />" + '</li>');
                     $('#note_count').text('Amount of notes is ' + data['new_count']);
                 } else {
                     $('tr.required').addClass("text-danger has-error");
