@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, TemplateView
+from django.views.generic import ListView, CreateView, TemplateView, View
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -49,20 +49,13 @@ class NoteCreateView(CreateView):
                              "data": form.data})
 
 
-class NoteRandomView(TemplateView):
+class NoteRandomView(View):
     """View for return random note object(text)"""
-    template_name = 'notes/note_random.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
         note = Note.objects.order_by('?')[0]
-        context['note'] = note.text
+        return JsonResponse({"note": note.text})
 
-        return context
-
-    # def get(self, request, *args, **kwargs):
-    #
-    #
 
 
 class RequestListView(ListView):
