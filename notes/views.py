@@ -6,6 +6,21 @@ from notes.models import Note, RequestMy
 from notes.forms import CreateNoteUpperForm
 
 
+def get_last_ten_requests():
+    return RequestMy.objects.order_by('-id')[:10]
+
+
+def get_count_unviewd_req(requests_qs):
+    ids = [r.id for r in requests_qs]
+    return RequestMy.objects.filter(pk__in=ids, is_viewed=False).count()
+
+
+def set_viewed_reqs(requests_qs):
+    for obj in requests_qs:
+        obj.is_viewed = True
+        obj.save()
+
+
 class NoteListView(ListView):
     """
     The view for render list of notes
@@ -57,7 +72,6 @@ class NoteRandomView(View):
         return JsonResponse({"note": note.text})
 
 
-
 class RequestListView(ListView):
     """View for getting 10 last request"""
 
@@ -66,24 +80,32 @@ class RequestListView(ListView):
     context_object_name = 'requests'
 
     def get_queryset(self):
-        return RequestMy.objects.order_by('-id')[:10]
+        return get_last_ten_requests()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['unviewed'] = RequestMy.objects.filter(is_viewed=False).count()
+        context['unviewed'] = get_count_unviewd_req()
 
         return context
 
     def get(self, request, *args, **kwargs):
         viewed = request.GET.get('viewed')
         if viewed == 'true':
-            requestsmy = self.get_queryset()
-            for obj in requestsmy:
-                obj.is_viewed = True
-                obj.save()
+            set_viewed_reqs(self.get_queryset())
 
         return super().get(request, *args, **kwargs)
 
 
-class RequestListViewForAjax(RequestListView):
-    template_name = None
+class RequestListViewForAjax(View):
+    """View for getting 10 last requests in ajax mode"""
+
+    def get(self, request, *args, **kwargs):
+        viewed = request.GET.get('viewed')
+        requestsmy = get_last_ten_requests()
+        if viewed == 'true':
+            set_viewed_reqs(requestsmy)
+
+        requests = [r.__str__() for r in requestsmy]
+        unviewed = get_count_unviewd_req(requestsmy)
+        return JsonResponse({"requests": requests,
+                             "unviewed": unviewed})
