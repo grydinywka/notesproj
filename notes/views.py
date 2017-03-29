@@ -10,7 +10,7 @@ def get_last_ten_requests():
     return RequestMy.objects.order_by('-id')[:10]
 
 
-def get_count_unviewd_req(requests_qs):
+def get_count_unviewed_req(requests_qs):
     ids = [r.id for r in requests_qs]
     return RequestMy.objects.filter(pk__in=ids, is_viewed=False).count()
 
@@ -84,7 +84,7 @@ class RequestListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['unviewed'] = get_count_unviewd_req()
+        context['unviewed'] = get_count_unviewed_req(self.get_queryset())
 
         return context
 
@@ -106,6 +106,6 @@ class RequestListViewForAjax(View):
             set_viewed_reqs(requestsmy)
 
         requests = [r.__str__() for r in requestsmy]
-        unviewed = get_count_unviewd_req(requestsmy)
+        unviewed = get_count_unviewed_req(requestsmy)
         return JsonResponse({"requests": requests,
                              "unviewed": unviewed})
