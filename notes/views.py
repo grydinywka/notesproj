@@ -29,6 +29,7 @@ class NoteListView(ListView):
     context_object_name = "notes"
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class NoteCreateView(CreateView):
     """
     The view for creating new uppercase note objects.
@@ -40,7 +41,6 @@ class NoteCreateView(CreateView):
     model = Note
     form_class = CreateNoteUpperForm
 
-    @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
