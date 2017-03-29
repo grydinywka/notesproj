@@ -53,4 +53,8 @@ class RequestMy(models.Model):
     is_viewed = models.BooleanField(blank=False, default=False)
 
     def __str__(self):
-        return "{} - Request {} {} - {}".format(self.id, self.method, self.path, self.is_viewed)
+        return "{} - Request {} {} - {}".format(self.id,
+                                                self.method,
+                                                self.path,
+                                                self.is_viewed
+                                                )

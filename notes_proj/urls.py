@@ -33,8 +33,7 @@ urlpatterns = [
         name='requests_list'),
     url(r'^requests-ajax/$', RequestListViewForAjax.as_view(),
         name='requests_ajax'),
-]# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+]
 
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
